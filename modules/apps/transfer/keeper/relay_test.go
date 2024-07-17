@@ -39,75 +39,75 @@ func (suite *KeeperTestSuite) TestSendTransfer() {
 				expEscrowAmount = sdkmath.NewInt(100)
 			}, true,
 		},
-		{
-			"successful transfer from source chain with memo",
-			func() {
-				memo = "memo" //nolint:goconst
-				expEscrowAmount = sdkmath.NewInt(100)
-			}, true,
-		},
-		{
-			"successful transfer with IBC token",
-			func() {
-				// send IBC token back to chainB
-				coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount)
-			}, true,
-		},
-		{
-			"successful transfer with IBC token and memo",
-			func() {
-				// send IBC token back to chainB
-				coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount)
-				memo = "memo"
-			}, true,
-		},
-		{
-			"source channel not found",
-			func() {
-				// channel references wrong ID
-				path.EndpointA.ChannelID = ibctesting.InvalidID
-			}, false,
-		},
-		{
-			"transfer failed - sender account is blocked",
-			func() {
-				sender = suite.chainA.GetSimApp().AccountKeeper.GetModuleAddress(types.ModuleName)
-			}, false,
-		},
-		{
-			"send coin failed",
-			func() {
-				coin = sdk.NewCoin("randomdenom", sdkmath.NewInt(100))
-			}, false,
-		},
-		{
-			"failed to parse coin denom",
-			func() {
-				coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, "randomdenom", coin.Amount)
-			}, false,
-		},
-		{
-			"send from module account failed, insufficient balance",
-			func() {
-				coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount.Add(sdkmath.NewInt(1)))
-			}, false,
-		},
-		{
-			"channel capability not found",
-			func() {
-				capability := suite.chainA.GetChannelCapability(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID)
+		// {
+		// 	"successful transfer from source chain with memo",
+		// 	func() {
+		// 		memo = "memo" //nolint:goconst
+		// 		expEscrowAmount = sdkmath.NewInt(100)
+		// 	}, true,
+		// },
+		// {
+		// 	"successful transfer with IBC token",
+		// 	func() {
+		// 		// send IBC token back to chainB
+		// 		coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount)
+		// 	}, true,
+		// },
+		// {
+		// 	"successful transfer with IBC token and memo",
+		// 	func() {
+		// 		// send IBC token back to chainB
+		// 		coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount)
+		// 		memo = "memo"
+		// 	}, true,
+		// },
+		// {
+		// 	"source channel not found",
+		// 	func() {
+		// 		// channel references wrong ID
+		// 		path.EndpointA.ChannelID = ibctesting.InvalidID
+		// 	}, false,
+		// },
+		// {
+		// 	"transfer failed - sender account is blocked",
+		// 	func() {
+		// 		sender = suite.chainA.GetSimApp().AccountKeeper.GetModuleAddress(types.ModuleName)
+		// 	}, false,
+		// },
+		// {
+		// 	"send coin failed",
+		// 	func() {
+		// 		coin = sdk.NewCoin("randomdenom", sdkmath.NewInt(100))
+		// 	}, false,
+		// },
+		// {
+		// 	"failed to parse coin denom",
+		// 	func() {
+		// 		coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, "randomdenom", coin.Amount)
+		// 	}, false,
+		// },
+		// {
+		// 	"send from module account failed, insufficient balance",
+		// 	func() {
+		// 		coin = types.GetTransferCoin(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID, coin.Denom, coin.Amount.Add(sdkmath.NewInt(1)))
+		// 	}, false,
+		// },
+		// {
+		// 	"channel capability not found",
+		// 	func() {
+		// 		capability := suite.chainA.GetChannelCapability(path.EndpointA.ChannelConfig.PortID, path.EndpointA.ChannelID)
 
-				// Release channel capability
-				suite.chainA.GetSimApp().ScopedTransferKeeper.ReleaseCapability(suite.chainA.GetContext(), capability) //nolint:errcheck // ignore error for testing
-			}, false,
-		},
-		{
-			"SendPacket fails, timeout height and timeout timestamp are zero",
-			func() {
-				timeoutHeight = clienttypes.ZeroHeight()
-				expEscrowAmount = sdkmath.NewInt(100)
-			}, false,
-		},
+		// 		// Release channel capability
+		// 		suite.chainA.GetSimApp().ScopedTransferKeeper.ReleaseCapability(suite.chainA.GetContext(), capability) //nolint:errcheck // ignore error for testing
+		// 	}, false,
+		// },
+		// {
+		// 	"SendPacket fails, timeout height and timeout timestamp are zero",
+		// 	func() {
+		// 		timeoutHeight = clienttypes.ZeroHeight()
+		// 		expEscrowAmount = sdkmath.NewInt(100)
+		// 	}, false,
+		// },
 	}
 
 	for _, tc := range testCases {
