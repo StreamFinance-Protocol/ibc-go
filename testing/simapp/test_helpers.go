@@ -112,6 +112,11 @@ func SignAndDeliver(
 	chainID string, accNums, accSeqs []uint64, expPass bool, blockTime time.Time, nextValHash []byte, priv ...cryptotypes.PrivKey,
 ) (*abci.ResponseFinalizeBlock, error) {
 	fmt.Println("IBC IBC IBC - SignAndDeliver")
+	fmt.Println("IBC IBC IBC - tx messages:", msgs)
+	fmt.Println("IBC IBC IBC - chainID:", chainID)
+	fmt.Println("IBC IBC IBC - number of priv keys:", len(priv))
+	fmt.Println("IBC IBC IBC - account:", "pubkey", priv[0].PubKey().String(), "address", priv[0].PubKey().Address())
+
 	tb.Helper()
 	tx, err := simtestutil.GenSignedMockTx(
 		rand.New(rand.NewSource(time.Now().UnixNano())),
@@ -124,6 +129,7 @@ func SignAndDeliver(
 		accSeqs,
 		priv...,
 	)
+	fmt.Println("IBC IBC IBC - tx:", tx)
 	require.NoError(tb, err)
 
 	txBytes, err := txCfg.TxEncoder()(tx)
