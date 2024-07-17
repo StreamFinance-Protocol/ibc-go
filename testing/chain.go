@@ -291,6 +291,7 @@ func (chain *TestChain) QueryConsensusStateProof(clientID string) ([]byte, clien
 // returned on block `n` to the validators of block `n+2`.
 // It calls BeginBlock with the new block created before returning.
 func (chain *TestChain) NextBlock() {
+	fmt.Println("IBC IBC IBC - NextBlock")
 	res, err := chain.App.FinalizeBlock(&abci.RequestFinalizeBlock{
 		Height:             chain.CurrentHeader.Height,
 		Time:               chain.CurrentHeader.GetTime(),

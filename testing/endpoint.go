@@ -83,6 +83,7 @@ func (endpoint *Endpoint) QueryProofAtHeight(key []byte, height uint64) ([]byte,
 // clientID for the endpoint if the message is successfully executed.
 // NOTE: a solo machine client will be created with an empty diversifier.
 func (endpoint *Endpoint) CreateClient() (err error) {
+	fmt.Println("IBC IBC IBC - CreateClient")
 	// ensure counterparty has committed state
 	endpoint.Counterparty.Chain.NextBlock()
 
