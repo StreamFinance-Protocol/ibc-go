@@ -23,7 +23,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil/mock"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
@@ -112,6 +111,7 @@ func SignAndDeliver(
 	tb testing.TB, txCfg client.TxConfig, app *bam.BaseApp, msgs []sdk.Msg,
 	chainID string, accNums, accSeqs []uint64, expPass bool, blockTime time.Time, nextValHash []byte, priv ...cryptotypes.PrivKey,
 ) (*abci.ResponseFinalizeBlock, error) {
+	fmt.Println("IBC IBC IBC - SignAndDeliver")
 	tb.Helper()
 	tx, err := simtestutil.GenSignedMockTx(
 		rand.New(rand.NewSource(time.Now().UnixNano())),
@@ -128,20 +128,6 @@ func SignAndDeliver(
 
 	txBytes, err := txCfg.TxEncoder()(tx)
 	require.NoError(tb, err)
-
-	fmt.Println("test_helpers XXXXXXXX")
-	for _, p := range priv {
-		fmt.Println(p.PubKey())
-	}
-	fmt.Println(txBytes)
-	sigTx, ok := tx.(authsigning.Tx)
-	if !ok {
-		fmt.Println("NOT OK")
-	}
-	fmt.Println(sigTx)
-	fmt.Println(sigTx.GetSigners())
-	fmt.Println(sigTx.GetSignaturesV2())
-	fmt.Println("XXXXXXXX")
 
 	return app.FinalizeBlock(&abci.RequestFinalizeBlock{
 		Height:             app.LastBlockHeight() + 1,
