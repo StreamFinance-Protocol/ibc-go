@@ -2,7 +2,6 @@ package tendermint
 
 import (
 	"bytes"
-	fmt "fmt"
 
 	errorsmod "cosmossdk.io/errors"
 	storetypes "cosmossdk.io/store/types"
@@ -47,15 +46,6 @@ func (cs *ClientState) verifyHeader(
 	header *Header,
 ) error {
 	currentTimestamp := ctx.BlockTime()
-
-	fmt.Println("verifyHeader")
-	fmt.Println(header)
-	fmt.Println("TRUSTED HEIGHT")
-	fmt.Println(header.TrustedHeight)
-	fmt.Println("TRUSTED VALIDATORS")
-	fmt.Println(header.TrustedValidators)
-	fmt.Println("VALIDATOR SET")
-	fmt.Println(header.ValidatorSet)
 
 	// Retrieve trusted consensus states for each Header in misbehaviour
 	consState, found := GetConsensusState(clientStore, cdc, header.TrustedHeight)

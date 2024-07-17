@@ -300,6 +300,10 @@ func (endpoint *Endpoint) QueryConnectionHandshakeProof() (
 	// obtain the client state on the counterparty chain
 	clientState = endpoint.Counterparty.Chain.GetClientState(endpoint.Counterparty.ClientID)
 
+	fmt.Println("CLIENT STATE")
+	fmt.Println(endpoint.Counterparty.ClientID)
+	fmt.Println(clientState)
+
 	// query proof for the client state on the counterparty
 	clientKey := host.FullClientStateKey(endpoint.Counterparty.ClientID)
 	clientProof, proofHeight = endpoint.Counterparty.QueryProof(clientKey)
