@@ -159,6 +159,7 @@ func NewTestChainWithValSet(tb testing.TB, coord *Coordinator, chainID string, v
 
 	// commit genesis block
 	chain.NextBlock()
+	chain.NextBlock()
 
 	return chain
 }
@@ -511,6 +512,10 @@ func (chain *TestChain) CreateTMClientHeader(chainID string, blockHeight int64, 
 		trustedVals *cmtproto.ValidatorSet
 	)
 	require.NotNil(chain.TB, cmtValSet)
+
+	fmt.Println("TMC CLIENT HEADER")
+	fmt.Println(chainID)
+	fmt.Println(nextVals)
 
 	tmHeader := cmttypes.Header{
 		Version:            cmtprotoversion.Consensus{Block: cmtversion.BlockProtocol, App: 2},

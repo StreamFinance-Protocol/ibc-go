@@ -2,6 +2,7 @@ package ibctesting
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 
@@ -173,7 +174,7 @@ func (coord *Coordinator) GetChain(chainID string) *TestChain {
 
 // GetChainID returns the chainID used for the provided index.
 func GetChainID(index int) string {
-	return "dydxprotocol"
+	return ChainIDPrefix + strconv.Itoa(index) + ChainIDSuffix
 }
 
 // CommitBlock commits a block on the provided indexes and then increments the global time.

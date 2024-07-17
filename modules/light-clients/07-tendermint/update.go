@@ -53,7 +53,7 @@ func (cs *ClientState) verifyHeader(
 	fmt.Println("TRUSTED HEIGHT")
 	fmt.Println(header.TrustedHeight)
 	fmt.Println("TRUSTED VALIDATORS")
-	fmt.Println(header.SignedHeader)
+	fmt.Println(header.TrustedValidators)
 	fmt.Println("VALIDATOR SET")
 	fmt.Println(header.ValidatorSet)
 
