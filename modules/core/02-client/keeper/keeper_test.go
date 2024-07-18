@@ -38,8 +38,8 @@ const (
 	testClientID2 = "tendermint-1"
 	testClientID3 = "tendermint-2"
 
-	trustingPeriod time.Duration = time.Hour * 24 * 7 * 2
-	ubdPeriod      time.Duration = time.Hour * 24 * 7 * 3
+	trustingPeriod time.Duration = time.Second * 1197504
+	ubdPeriod      time.Duration = time.Hour * 24 * 7 * 2
 	maxClockDrift  time.Duration = time.Second * 10
 )
 

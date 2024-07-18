@@ -24,8 +24,8 @@ const (
 	chainIDRevision0               = "gaia-revision-0"
 	chainIDRevision1               = "gaia-revision-1"
 	clientID                       = "gaiamainnet"
-	trustingPeriod   time.Duration = time.Hour * 24 * 7 * 2
-	ubdPeriod        time.Duration = time.Hour * 24 * 7 * 3
+	trustingPeriod   time.Duration = time.Second * 1197504
+	ubdPeriod        time.Duration = time.Hour * 24 * 7 * 2
 	maxClockDrift    time.Duration = time.Second * 10
 )
 
