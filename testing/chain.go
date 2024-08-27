@@ -302,7 +302,7 @@ func (chain *TestChain) NextBlock() {
 }
 
 func (chain *TestChain) commitBlock(res *abci.ResponseFinalizeBlock) {
-	_, err := chain.App.Commit()
+	_, err := chain.App.Commit(&abci.RequestCommit{})
 	require.NoError(chain.TB, err)
 
 	// set the last header to the current header
