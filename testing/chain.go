@@ -513,10 +513,6 @@ func (chain *TestChain) CreateTMClientHeader(chainID string, blockHeight int64, 
 	)
 	require.NotNil(chain.TB, cmtValSet)
 
-	fmt.Println("TMC CLIENT HEADER")
-	fmt.Println(chainID)
-	fmt.Println(nextVals)
-
 	tmHeader := cmttypes.Header{
 		Version:            cmtprotoversion.Consensus{Block: cmtversion.BlockProtocol, App: 2},
 		ChainID:            chainID,
