@@ -718,3 +718,8 @@ func (k Keeper) PruneAcknowledgements(ctx sdk.Context, portID, channelID string,
 
 	return totalPruned, totalRemaining, nil
 }
+
+// PreprocessSendPacket implements the ICS4WrapperWithPreprocess interface
+func (k Keeper) PreprocessSendPacket(ctx sdk.Context, packet []byte) error {
+	return nil
+}

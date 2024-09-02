@@ -390,3 +390,8 @@ func (k Keeper) MustUnmarshalFees(bz []byte) types.PacketFees {
 	k.cdc.MustUnmarshal(bz, &fees)
 	return fees
 }
+
+// PreprocessSendPacket implements the ICS4WrapperWithPreprocess interface
+func (k Keeper) PreprocessSendPacket(ctx sdk.Context, packet []byte) error {
+	return nil
+}

@@ -183,6 +183,11 @@ type ICS4Wrapper interface {
 	) (string, bool)
 }
 
+type ICS4WrapperWithPreprocess interface {
+	ICS4Wrapper
+	PreprocessSendPacket(ctx sdk.Context, packet []byte) error
+}
+
 // Middleware must implement IBCModule to wrap communication from core IBC to underlying application
 // and ICS4Wrapper to wrap communication from underlying application to core IBC.
 type Middleware interface {

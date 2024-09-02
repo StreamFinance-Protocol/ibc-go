@@ -29,7 +29,7 @@ type Keeper struct {
 	cdc            codec.BinaryCodec
 	legacySubspace types.ParamSubspace
 
-	ics4Wrapper   porttypes.ICS4Wrapper
+	ics4Wrapper   porttypes.ICS4WrapperWithPreprocess
 	channelKeeper types.ChannelKeeper
 	portKeeper    types.PortKeeper
 	authKeeper    types.AccountKeeper
@@ -46,7 +46,7 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	key storetypes.StoreKey,
 	legacySubspace types.ParamSubspace,
-	ics4Wrapper porttypes.ICS4Wrapper,
+	ics4Wrapper porttypes.ICS4WrapperWithPreprocess,
 	channelKeeper types.ChannelKeeper,
 	portKeeper types.PortKeeper,
 	authKeeper types.AccountKeeper,
@@ -79,8 +79,10 @@ func NewKeeper(
 
 // WithICS4Wrapper sets the ICS4Wrapper. This function may be used after
 // the keepers creation to set the middleware which is above this module
-// in the IBC application stack.
-func (k *Keeper) WithICS4Wrapper(wrapper porttypes.ICS4Wrapper) {
+// in the IBC application stack. For the keeper of the transfer application,
+// we use the ICS4WrapperWithPreprocess in order to allow preprocessing of
+// transfers before attempting to burn or escrow funds.
+func (k *Keeper) WithICS4Wrapper(wrapper porttypes.ICS4WrapperWithPreprocess) {
 	k.ics4Wrapper = wrapper
 }
 

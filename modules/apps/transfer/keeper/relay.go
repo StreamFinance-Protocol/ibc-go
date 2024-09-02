@@ -97,6 +97,15 @@ func (k Keeper) sendTransfer(
 		telemetry.NewLabel(coretypes.LabelDestinationChannel, destinationChannel),
 	}
 
+	packetData := types.NewFungibleTokenPacketData(
+		fullDenomPath, token.Amount.String(), sender.String(), receiver, memo,
+	)
+
+	err = k.ics4Wrapper.PreprocessSendPacket(ctx, packetData.GetBytes())
+	if err != nil {
+		return 0, err
+	}
+
 	// NOTE: SendTransfer simply sends the denomination as it exists on its own
 	// chain inside the packet data. The receiving chain will perform denom
 	// prefixing as necessary.
@@ -129,10 +138,6 @@ func (k Keeper) sendTransfer(
 			panic(fmt.Errorf("cannot burn coins after a successful send to a module account: %v", err))
 		}
 	}
-
-	packetData := types.NewFungibleTokenPacketData(
-		fullDenomPath, token.Amount.String(), sender.String(), receiver, memo,
-	)
 
 	sequence, err := k.ics4Wrapper.SendPacket(ctx, channelCap, sourcePort, sourceChannel, timeoutHeight, timeoutTimestamp, packetData.GetBytes())
 	if err != nil {
