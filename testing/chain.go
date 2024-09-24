@@ -302,7 +302,7 @@ func (chain *TestChain) NextBlock() {
 }
 
 func (chain *TestChain) commitBlock(res *abci.ResponseFinalizeBlock) {
-	_, err := chain.App.Commit()
+	_, err := chain.App.Commit(&abci.RequestCommit{})
 	require.NoError(chain.TB, err)
 
 	// set the last header to the current header
@@ -512,10 +512,6 @@ func (chain *TestChain) CreateTMClientHeader(chainID string, blockHeight int64, 
 		trustedVals *cmtproto.ValidatorSet
 	)
 	require.NotNil(chain.TB, cmtValSet)
-
-	fmt.Println("TMC CLIENT HEADER")
-	fmt.Println(chainID)
-	fmt.Println(nextVals)
 
 	tmHeader := cmttypes.Header{
 		Version:            cmtprotoversion.Consensus{Block: cmtversion.BlockProtocol, App: 2},
